@@ -1,5 +1,3 @@
-set foldlevel=99
-
 function! IndentLevel(lnum)
 	return indent(a:lnum) / &tabstop
 endfunction
@@ -20,13 +18,13 @@ function! NextNonBlankLine(lnum)
 endfunction
 
 " fold by indent, but include first line
-function! Fold(lnum)
+function! IndentFold(lnum, offset)
 	if getline(a:lnum) =~? '\v^\s*$'
 		return '-1'
 	endif
 
-	let this_indent = IndentLevel(a:lnum)
-	let next_indent = IndentLevel(NextNonBlankLine(a:lnum))
+	let this_indent = IndentLevel(a:lnum) + a:offset
+	let next_indent = IndentLevel(NextNonBlankLine(a:lnum)) + a:offset
 
 	if next_indent <= this_indent
 		return this_indent
@@ -36,7 +34,7 @@ function! Fold(lnum)
 endfunction
 
 " display first line with correct indentation
-function! FoldText()
+function! IndentFoldText()
 	let firstline = getline(v:foldstart)
 	if &expandtab
 		let space = ''
@@ -46,6 +44,7 @@ function! FoldText()
 	return space . firstline
 endfunction
 
+set foldlevel=99
 set foldmethod=expr
-set foldexpr=Fold(v:lnum)
-set foldtext=FoldText()
+set foldexpr=IndentFold(v:lnum,0)
+set foldtext=IndentFoldText()
