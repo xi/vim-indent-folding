@@ -1,7 +1,7 @@
 set foldlevel=99
 
 function! IndentLevel(lnum)
-	return indent(a:lnum) / &shiftwidth
+	return indent(a:lnum) / &tabstop
 endfunction
 
 function! NextNonBlankLine(lnum)
@@ -35,12 +35,13 @@ function! Fold(lnum)
 	endif
 endfunction
 
+" display first line with correct indentation
 function! FoldText()
 	let firstline = getline(v:foldstart)
 	if &expandtab
 		let space = ''
 	else
-		let space = repeat(' ', indent(v:foldstart) - IndentLevel(v:foldstart) )
+		let space = repeat(' ', indent(v:foldstart) - indent(v:foldstart) / &tabstop)
 	endif
 	return space . firstline
 endfunction
