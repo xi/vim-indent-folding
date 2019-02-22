@@ -10,3 +10,5 @@ fold. This is ideal e.g. for nested lists:
             -   Item 2.2.1
             -   Item 2.2.2
     -   Item 3-----------------------------------------------------------------
+
+Inspired by http://learnvimscriptthehardway.stevelosh.com/chapters/49.html
