@@ -1,5 +1,5 @@
 function! IndentLevel(lnum)
-	return indent(a:lnum) / &tabstop
+	return indent(a:lnum) / &shiftwidth
 endfunction
 
 function! NextNonBlankLine(lnum)
