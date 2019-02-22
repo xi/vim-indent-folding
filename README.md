@@ -1,5 +1,5 @@
 This plugin enables folding by indentation including the previous line in the
-fold. This ideal e.g. for nested lists:
+fold. This is ideal e.g. for nested lists:
 
     -   Item 1
         -   Item 1.1
