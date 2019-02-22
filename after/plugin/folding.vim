@@ -18,13 +18,13 @@ function! NextNonBlankLine(lnum)
 endfunction
 
 " fold by indent, but include first line
-function! IndentFold(lnum, offset)
+function! IndentFold(lnum)
 	if getline(a:lnum) =~? '\v^\s*$'
 		return '-1'
 	endif
 
-	let this_indent = IndentLevel(a:lnum) + a:offset
-	let next_indent = IndentLevel(NextNonBlankLine(a:lnum)) + a:offset
+	let this_indent = IndentLevel(a:lnum)
+	let next_indent = IndentLevel(NextNonBlankLine(a:lnum))
 
 	if next_indent <= this_indent
 		return this_indent
@@ -46,5 +46,5 @@ endfunction
 
 set foldlevel=99
 set foldmethod=expr
-set foldexpr=IndentFold(v:lnum,0)
+set foldexpr=IndentFold(v:lnum)
 set foldtext=IndentFoldText()
