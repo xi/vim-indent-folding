@@ -3,15 +3,15 @@ function! s:IndentLevel(lnum)
 endfunction
 
 function! s:NextNonBlankLine(lnum)
-	let numlines = line('$')
-	let current = a:lnum + 1
+	let l:numlines = line('$')
+	let l:current = a:lnum + 1
 
-	while current <= numlines
+	while l:current <= l:numlines
 		if getline(current) =~? '\v\S'
-			return current
+			return l:current
 		endif
 
-		let current += 1
+		let l:current += 1
 	endwhile
 
 	return -1
@@ -23,23 +23,23 @@ function! folding#IndentFold(lnum)
 		return '-1'
 	endif
 
-	let this_indent = s:IndentLevel(a:lnum)
-	let next_indent = s:IndentLevel(s:NextNonBlankLine(a:lnum))
+	let l:this_indent = s:IndentLevel(a:lnum)
+	let l:next_indent = s:IndentLevel(s:NextNonBlankLine(a:lnum))
 
-	if next_indent <= this_indent
-		return this_indent
+	if l:next_indent <= l:this_indent
+		return l:this_indent
 	else
-		return '>' . next_indent
+		return '>' . l:next_indent
 	endif
 endfunction
 
 " display first line with correct indentation
 function! folding#IndentFoldText()
-	let firstline = getline(v:foldstart)
+	let l:firstline = getline(v:foldstart)
 	if &expandtab
-		let space = ''
+		let l:space = ''
 	else
-		let space = repeat(' ', indent(v:foldstart) - indent(v:foldstart) / &tabstop)
+		let l:space = repeat(' ', indent(v:foldstart) - indent(v:foldstart) / &tabstop)
 	endif
-	return space . firstline
+	return l:space . l:firstline
 endfunction
